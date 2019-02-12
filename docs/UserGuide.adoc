@@ -91,6 +91,26 @@ Returns `John Doe` but not `john`.
 * `find Betsy Tim John` +
 Returns Any person having names `Betsy`, `Tim`, or `John`.
 
+== Finding all persons containing any keyword in their phone number: `fnum`
+
+Finds persons whose phone number contain any of the given keywords. +
+Format: `fnum KEYWORD [MORE_KEYWORDS]`
+
+[NOTE]
+====
+In the search the order of the keywords does not matter, both private and public phone number are searched,
+and persons matching at least one keyword will be returned (i.e. `OR` search).
+====
+
+Examples:
+
+* `find 987` +
+Returns `John Doe` record, whose number is 98765432.
+
+* `find 987 1234567` +
+Returns both `John Doe` and `Betsy Crowe` records are returned.
+
+
 == Deleting a person : `delete`
 
 Deletes the specified person from the address book. Irreversible. +
