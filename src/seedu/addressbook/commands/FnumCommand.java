@@ -1,7 +1,6 @@
 package seedu.addressbook.commands;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -36,24 +35,41 @@ public class FnumCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        final List<ReadOnlyPerson> personsFound = getPersonsWithNameContainingAnyKeyword(keywords);
+        final List<ReadOnlyPerson> personsFound = getPersonsWithNumberContainingAnyKeyword(keywords);
         return new CommandResult(getMessageForPersonListShownSummary(personsFound), personsFound);
     }
 
     /**
-     * NEED TO WORK ON THE STUFF BELOW TOOO!!!
-     * Retrieves all persons in the address book whose names contain some of the specified keywords.
+     * Retrieves all persons in the address book whose number contain some of the specified keywords.
      *
      * @param keywords for searching
      * @return list of persons found
      */
-    private List<ReadOnlyPerson> getPersonsWithNameContainingAnyKeyword(Set<String> keywords) {
+
+    private List<ReadOnlyPerson> getPersonsWithNumberContainingAnyKeyword(Set<String> keywords) {
         final List<ReadOnlyPerson> matchedPersons = new ArrayList<>();
         for (ReadOnlyPerson person : addressBook.getAllPersons()) {
-            final Set<String> wordsInName = new HashSet<>(person.getName().getWordsInName());
-            if (!Collections.disjoint(wordsInName, keywords)) {
-                matchedPersons.add(person);
+            final String sequenceInNumber = person.getPhone().toString();
+//          using many loops might not be so efficient, hashing is better
+            for (String key : keywords){
+
+                if (sequenceInNumber.contains(key)){
+                    boolean add = true;
+                    for (ReadOnlyPerson p: matchedPersons) {
+                        if (p.equals(person)) {
+                            add = false;
+                        }
+                    }
+                    if (add == true){
+                        matchedPersons.add(person);
+                    }
+
+                }
+
             }
+//            if (!Collections.disjoint(sequenceInNumber, keywords)) {
+//                matchedPersons.add(person);
+//            }
         }
         return matchedPersons;
     }
