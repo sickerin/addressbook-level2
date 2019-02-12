@@ -106,6 +106,24 @@
   # find multiple with some keywords
   find Charlie Betsy
 
+
+##########################################################
+# test fnum command
+##########################################################
+
+  # should match none with no keywords
+  fnum
+  # does not match if none have keywords
+  fnum hello
+
+  # find unique number
+  fnum 555555
+  # find multiple with same keyword
+  fnum 1
+  # find multiple with some keywords
+  fnum 4 1
+
+
 ##########################################################
 # test delete person command
 ##########################################################
